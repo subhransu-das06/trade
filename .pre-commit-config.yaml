@@ -1,0 +1,35 @@
+default_language_version:
+  python: python3.10
+default_stages: [ commit, push ]
+repos:
+  - repo: https://github.com/psf/black
+    rev: 22.6.0
+    hooks:
+      - id: black
+        name: black
+        additional_dependencies: [ "click" ]
+        entry: black
+        types: [ python ]
+        args: [--fast, trade/ ]
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 5.0.4
+    hooks:
+      - id: flake8
+        name: flake8
+        language: system
+        entry: flake8
+        types: [ python ]
+        args: [ --select=F401 ]
+        files: trade/
+        exclude: __init__.py
+
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+        entry: isort
+        types: [ python ]
+        args: [ trade/ ]
+        exclude: tests/
